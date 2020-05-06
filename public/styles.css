@@ -1,0 +1,36 @@
+body {
+    background-color: tomato;
+    padding: 0;
+    margin: 0;
+
+}
+
+.app {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.alarm {
+    width: 50%;
+    height: 50vh;
+    background-color: teal;
+}
+
+.time {
+    width: 50%;
+    height: 50vh;
+    background-color: pink;
+}
+
+.stopwatch {
+    width: 50%;
+    height: 50vh;
+    background-color: rgb(197, 255, 192);
+}
+
+.timer {
+    width: 50%;
+    height: 50vh;
+    background-color: rgb(71, 73, 37);
+}
+
