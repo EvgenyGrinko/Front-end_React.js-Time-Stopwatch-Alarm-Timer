@@ -33,4 +33,31 @@ body {
     height: 50vh;
     background-color: rgb(71, 73, 37);
 }
+/*************DigitInput***************/
+
+.digit-input {
+    margin: 10px;
+    background-color: yellowgreen;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.digit-container {
+    display: flex;
+    flex-flow: row no-wrap;
+}
+
+.arrow {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 20px;
+}
+.up-arrow {
+    background-image: url(svg/up-arrow.svg);
+}
+.down-arrow {
+    background-image: url(svg/down-arrow.svg);
+} 
 
