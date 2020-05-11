@@ -3,7 +3,6 @@ import Time from "./Time";
 import Alarm from "./Alarm";
 import StopWatch from "./StopWatch";
 import Timer from "./Timer";
-import DigitInput from "./DigitInput";
 
 function App(){
     return <div className="app">
