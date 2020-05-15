@@ -33,7 +33,7 @@ body {
     height: 50vh;
     background-color: rgb(71, 73, 37);
 }
-/*************DigitInput***************/
+/*************DigitInputBlock***************/
 
 .digit-input {
     margin: 10px;
@@ -61,3 +61,23 @@ body {
     background-image: url(svg/down-arrow.svg);
 } 
 
+/*************HistoryList***************/
+
+.history-list {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    opacity: 0.9;
+    background-color: orange;
+    width: 40%;
+    height: 40%;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2em;
+    height: 2em;
+    background-color: orangered;
+}

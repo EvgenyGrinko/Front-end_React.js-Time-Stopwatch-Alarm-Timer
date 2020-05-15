@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import DigitInputBlock from "./DigitInputBlock";
+import HistoryList from "./HistoryList";
+import history from "./history";//An object with array of unique values of time that were previously used for timer and a function to add it.
 
 function Timer(){
     //State of the time that user sets.
@@ -20,7 +22,8 @@ function Timer(){
     const [buttonName, setButtonName] = useState("Start");//The button may has 3 states: "Start" - to initiate timer; "Pause" - to pause countdown; "Resume" - to continue it.
     const [timerId, setTimerId] = useState();
     const [remainingTime, setRemainingTime] = useState(0);//Saves the remaining for the timer time and used to resume it if the button "Pause" would be clicked.
-
+    const [isHistoryVisible, setHistoryVisibility] = useState("none");//Controls visibility of the "HistoryList" component.
+            
     //Function to handle timer state. It invokes every time, when user clicks on "Start"/"Pause"/"Resume" buttons.
     //This is the first realization of timer functionality. The idea: according to the time, that user set, the
     //time gap in seconds calculated; every second this time gap decreases by 1 until its value will be 0. Timer state
@@ -37,7 +40,9 @@ function Timer(){
                 timerMinutes: time.minutes,
                 timerSeconds: time.seconds
             }); 
-            
+
+            setHistory(time);//Add current time value in the timer history if it hasn't been used before.
+
             timeGap = time.hours * 3600 + time.minutes * 60 + time.seconds;//convert time to seconds
             setRemainingTime(timeGap);
         }
@@ -45,7 +50,6 @@ function Timer(){
         if (timeGap === 0) {
             setDisabled(false);
             setResetDisabled(false)
-            event.preventDefault();
             return;
         }
         //If he did set, the countdown begins:
@@ -69,7 +73,6 @@ function Timer(){
                     timerMinutes: Math.floor((timeGap-Math.floor(timeGap/3600)*3600)/60),
                     timerSeconds: timeGap - Math.floor(timeGap/3600)*3600 - Math.floor((timeGap-Math.floor(timeGap/3600)*3600)/60)*60
                 });
-                
                 setRemainingTime(timeGap);
                 setTimerId(setTimeout(tick, 1000));
 
@@ -81,7 +84,6 @@ function Timer(){
             setResetDisabled(false);//The "RESET" button is enable if the button "Pause" was clicked
             setButtonName("Resume");
         } 
-        event.preventDefault();
     }
 
     // //Function to handle timer state. It invokes every time, when user clicks on "Start"/"Pause"/"Resume" buttons.
@@ -102,6 +104,9 @@ function Timer(){
     //             timerMinutes: time.minutes,
     //             timerSeconds: time.seconds
     //         }); 
+
+    //         setHistory(time);//Add current time value in the timer history if it hasn't been used before.
+
     //         timerDate = new Date();
     //         timerDate.setHours(time.hours, time.minutes, time.seconds, 0);
     //         setRemainingTime(timerDate);
@@ -110,7 +115,6 @@ function Timer(){
     //      if (timeGapInMs === 0) {
     //         setDisabled(false);
     //         setResetDisabled(false);
-    //         event.preventDefault();
     //         return;
     //     }
     //     //If he did set, the countdown begins:
@@ -145,8 +149,31 @@ function Timer(){
     //         setResetDisabled(false);//The "RESET" button is enable if the button "Pause" was clicked
     //         setButtonName("Resume");
     //     } 
-    //     event.preventDefault();
     // }
+
+    //Function adds time values to the array "list" in the external "history" object which is used to render list of times in "HistoryList" component
+    function setHistory(timeValue){
+        const numberOfNotesInHistory = 10;
+        //In the array can be added only unique values of time. This examination will be done if the array already has any items.
+        if (timeValue.hours === 0 && timeValue.minutes === 0 && timeValue.seconds === 0) return;//"Do nothing" if time set is "00:00:00".
+        if (history.historyList.length === 0) return history.add(timeValue);
+        else {
+            let isAnyEqualTime = false;//Variable determines, is there any equal time value for the current one among previous items of the array 
+            history.historyList.forEach((item) => {
+                if ((item.seconds === timeValue.seconds) && (item.minutes === timeValue.minutes) && (item.hours === timeValue.hours)){
+                    isAnyEqualTime = true;
+                } 
+            });
+            if (isAnyEqualTime) return;//If we have a match between current timer set and previous in history, don't add it. 
+            //If history already has a given number of notes, delete 1 note from the beginning of array and add current time to the end.
+            if (history.historyList.length === numberOfNotesInHistory) {
+                history.list.shift();
+                history.add(timeValue);
+                return;
+            }
+            else return history.add(timeValue);
+        }      
+    }
     
     //Function handles click on the "RESET" button. It resets all fileds to "0".
     function resetState(event){
@@ -159,13 +186,34 @@ function Timer(){
         setTimerState({timerHours: 0, timerMinutes: 0, timerSeconds: 0});
         setButtonName("Start");
         setDisabled(false);//Enables input fields and Up/Down buttons
-        event.preventDefault();
     }
 
     //Function used to add a zero if the "timeValue" is less then 10. It needs to make timer countdown visually match the format 00:00:00.
     function addZero(timeValue){
         if (timeValue < 10) return "0" + timeValue;
         else return timeValue;
+    }
+
+    //-------------------Functions for "HistoryList" component-------------------//
+    
+    //Function makes "HistoryList" component visible
+    function handleHistoryClick(){
+        setHistoryVisibility("");
+    }
+    //Function hides "HistoryList" component after click on "Cancel" button
+    function handleCancelClick(){
+        setHistoryVisibility("none");
+    }
+    //Function calls when the user clicks on one of the items, sets timer state with this value and hides "HistoryList" component 
+    function historyItemClick(id){
+        setReset(1);
+        //If the user clicks on any item of the history list, a deep copy of the history list is used to set time instead of direct using of history list.
+        setTimerState({
+            timerHours: history.historyList[id].hours,
+            timerMinutes: history.historyList[id].minutes,
+            timerSeconds: history.historyList[id].seconds});
+        setTime(history.historyList[id]);
+        setHistoryVisibility("none");
     }
 
     //-------------------Functions for "DigitInputBlock" component-------------------//
@@ -216,7 +264,6 @@ function Timer(){
     //Function passed to "DigitInputBlock" component. It allows to increase/decrease by 1 value "hours", "minutes" or "seconds" of time in the input element.
     function handleUpDownClick(event, fieldName){
         setReset(1);
-        event.preventDefault();
         const name = event.target.name; //button name ("up" or "down")
         
         //The input value can't be "undefiend". If it is, assign current input field to "0". 
@@ -263,7 +310,6 @@ function Timer(){
     }
 
     return <div className="timer">
-        <form>
         <div className = "digit-container">
             <DigitInputBlock 
                 fieldName="hours" 
@@ -287,11 +333,17 @@ function Timer(){
                 isDisabled={isDisabled}
                 />
         </div>
-
-            <button onClick={handleStartStopClick}>{buttonName}</button>
-            <button onClick = {resetState} disabled = {isResetDisabled}>RESET</button>
-        </form>
+        <button onClick = {handleStartStopClick}>{buttonName}</button>
+        <button onClick = {resetState} disabled = {isResetDisabled}>RESET</button>
+        <button onClick = {handleHistoryClick} disabled = {isDisabled}>History</button>
+        
         <h1>{addZero(timerState.timerHours)} : {addZero(timerState.timerMinutes)} : {addZero(timerState.timerSeconds)}</h1>
+        <HistoryList 
+            history = {history.historyList} 
+            display = {isHistoryVisible} 
+            onItemClick = {historyItemClick} 
+            onCancelClick = {handleCancelClick}
+            />
     </div>
     
 }
