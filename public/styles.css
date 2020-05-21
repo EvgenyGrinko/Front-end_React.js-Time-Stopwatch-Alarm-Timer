@@ -81,3 +81,40 @@ body {
     height: 2em;
     background-color: orangered;
 }
+
+/*************Alarm***************/
+
+.alarm-header {
+    background-color: antiquewhite;
+    display: block;
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.initial-alarm-curtain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    background-color: brown;
+    font: 50px bold ;
+    color: gold;
+       
+}
+
+.initial-alarm-curtain h1, h4{
+    margin: 0;
+    padding: 0;
+}
+
+.alarm-settings{
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    margin: 10px;
+    background-color: cornflowerblue;
+}
