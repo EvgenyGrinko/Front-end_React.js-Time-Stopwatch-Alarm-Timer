@@ -17,9 +17,12 @@ function HistoryList(props){
     }
 
     return <div className = "history-list" style = {{display: props.display}}>
-        {props.history.length === 0 ? <h1>History is empty</h1> : <ul>{listItems}</ul>}
-        <button className = "close-button" onClick = {props.onCancelClick}>X</button>
-    </div>
+
+                {props.history.length === 0 ? <p>History is empty</p> : <ul>{listItems}</ul>}
+                
+                <button className = "close-button" title="close" onClick = {props.onCancelClick}></button>
+
+            </div>
 }
 
 export default HistoryList;
