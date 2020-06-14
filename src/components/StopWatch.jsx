@@ -1,57 +1,136 @@
 import React, { useState } from "react";
+import InitialCurtain from "./InitialCurtain";//Initial component-curtain that hides main functionality
+import CloseComponent from "./CloseComponent";//Component used to close currently opened main one
+import addZero from "./addZero";//Function used to add a zero to the passed in "timeValue" if is less then 10.
 
 function StopWatch(){
-    // const [time, setTime] = useState({
-    //     hours: 0,
-    //     minutes: 0,
-    //     seconds: 0,
-    //     miliseconds: 0
-    // });
-    const [time, setTime] = useState(0);
-    const [buttonName, setButtonName] = useState("GO");
-    const [timerId, setTimerId] = useState();
-    
 
-    function handleClick(){
+    const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
+    const [time, setTime] = useState(new Date(0 + timezoneOffset));
+    const [timeAfterStop, setTimeAfterStop] = useState(0);
+    const [buttonStartStopName, setButtonStartStopName] = useState("START");
+    const [buttonLapResetName, setButtonLapResetName] = useState("");
+    const [timerIdButtonStart, setTimerIdButtonStart] = useState();
+    const [timerIdButtonStop, setTimerIdButtonStop] = useState();
+    const [allLaps, setAllLaps] = useState([]);
+    const numberOfLaps = 5;
+
+    function handleStartStopClick(){
+        const buttonStartStop = document.querySelector(".stopwatch-area-buttons .button-start-stop");
+        const buttonLapReset = document.querySelector(".stopwatch-area-buttons .button-lap-reset");
+        const initialCurtain = document.querySelector(".stopwatch .initial-curtain");
         
-        // let timeStamp = 0;
-        if (buttonName === "GO") {
-            setButtonName("STOP");
-            //The timer should have format: 00:00:00:00 (hours : minutes : seconds : miliseconds)
-            //Hours shouldn't be shown while it's value is zero
-            const initialTimeStamp = Date.now();
-            setTimerId(setTimeout(function tick(){
-                // timeStamp++;
-                // let timeInSeconds = Math.floor(timeStamp/100);
-                // let milisec = Math.floor((timeStamp/100 - timeInSeconds)*100);
-                // let hours = Math.floor(timeInSeconds/3600);
-                // let minutes = Math.floor((timeInSeconds - hours * 3600) / 60);
-                // let seconds = Math.floor((timeInSeconds - hours * 3600 - minutes * 60));
-                // setTime({
-                //     hours: hours,
-                //     minutes: minutes,
-                //     seconds: seconds,
-                //     miliseconds: milisec
-                // });
+        
+        if (buttonStartStopName === "START") {
+            clearTimeout(timerIdButtonStop);
+            setButtonStartStopName("STOP");
+            initialCurtain.classList.add("curtainAnimation");
 
-                setTime(Date.now() - initialTimeStamp); 
-                setTimerId(setTimeout(tick, 10));
+            buttonStartStop.classList.remove("button-start");
+            buttonStartStop.classList.add("button-stop");
+
+            buttonLapReset.classList.remove("button-reset-disabled");
+            buttonLapReset.classList.remove("button-reset");
+            if (allLaps.length === numberOfLaps) buttonLapReset.classList.add("button-lap-disabled");
+            else buttonLapReset.classList.add("button-lap");
+
+            setButtonLapResetName("LAP");
+            let initialTimeStamp;
+            (timeAfterStop) ? initialTimeStamp = timeAfterStop : initialTimeStamp = Date.now();
+      
+            setTimerIdButtonStart(setTimeout(function tick(){
+                const currentTimeStamp = Date.now() - initialTimeStamp;
+                setTime(new Date(currentTimeStamp + timezoneOffset));
+                setTimerIdButtonStart(setTimeout(tick, 10));
             }, 10));
         } 
-        if (buttonName === "STOP"){
-            clearTimeout(timerId);
-            setButtonName("GO");
+        if (buttonStartStopName === "STOP"){
+            clearTimeout(timerIdButtonStart);
+            initialCurtain.classList.remove("curtainAnimation");
+            buttonLapReset.classList.remove("button-lap-disabled");
+            setTimerIdButtonStop(setTimeout(function tick(){
+                setButtonStartStopName("START");
+                buttonStartStop.classList.remove("button-stop");    
+                buttonStartStop.classList.add("button-start");
+                setButtonLapResetName("");
+                buttonLapReset.classList.remove("button-lap");
+                buttonLapReset.classList.add("button-reset");
+    
+                setTimeAfterStop(Date.now() - time + timezoneOffset);
+
+            setTimerIdButtonStop(setTimeout(tick, 10));
+            }, 10));
         }
     }
 
-    function handleResetClick(){
-        setTime(0);
+    function handleLapResetButtonClick(){
+        const areaLaps = document.querySelector(".stopwatch-area-laps");
+        const buttonLapReset = document.querySelector(".button-lap-reset");
+
+        if (buttonLapResetName === "LAP") {
+            areaLaps.classList.remove("hide-element");
+            if (allLaps.length === numberOfLaps) {
+                buttonLapReset.classList.remove("button-lap");
+                buttonLapReset.classList.add("button-lap-disabled");
+                return;
+            }else{
+                setAllLaps((prevValues) => {
+                    if (prevValues.length === 0) return [time];
+                    if (prevValues.length === 1) return [prevValues[0], new Date(time - prevValues[0] + timezoneOffset)]
+                    else {
+                        if (prevValues.length === numberOfLaps-1) {
+                            buttonLapReset.classList.remove("button-lap");
+                            buttonLapReset.classList.add("button-lap-disabled");
+                        }
+                        let sumPrevValues = 0;
+                        prevValues.forEach((item) => {sumPrevValues += -timezoneOffset + item.getTime()});
+                        return [...prevValues, new Date(time.getTime() - sumPrevValues)];
+                    };
+                });
+            }
+        }
+        if (buttonLapResetName === "") { 
+            clearTimeout(timerIdButtonStop);
+            areaLaps.classList.add("hide-element");
+            setTime(new Date(0 + timezoneOffset));
+            setTimeAfterStop(0);
+            setAllLaps([]);
+            buttonLapReset.classList.remove("button-lap-disabled");
+            buttonLapReset.classList.remove("button-lap");
+        }
     }
-    return <div className="stopwatch">
-    {/* <h1>{time.hours || "00"} : {time.minutes || "00"} : {time.seconds || "00"} : {time.miliseconds || "00"}</h1> */}
-    <h1>{new Date(time-10800000).toLocaleTimeString()}:{new Date(time-10800000).getMilliseconds()}</h1>
-    <button onClick={handleClick}>{buttonName}</button>
-    <button onClick={handleResetClick}>RESET</button>
-    </div>}
+
+    function createTimeValue(time, index){
+        const hoursValue = time.getHours();
+        const timeValue = addZero(time.getMinutes()) + " : " + addZero(time.getSeconds()) + " : " + addZero(Math.trunc(time.getMilliseconds()/10));
+        if (hoursValue !== 0) timeValue = addZero(hoursValue) + " : " + timeValue;
+        if (index === 0) return (<div>{timeValue}</div>);
+        else return (<div>{"+" + timeValue}</div>);
+    }
+
+    return <div className="container stopwatch">
+                <InitialCurtain name = "Stopwatch" handleCurtainClick = {false}/>
+                <div className = "stopwatch-area-button-close">
+                    <CloseComponent name="stopwatch"/>
+                </div>
+                <div className = "stopwatch-area-time"> {createTimeValue(time, 0)}</div>
+                <div className = "stopwatch-area-buttons">
+                    <button className = "button-start-stop button-start" onClick = {handleStartStopClick}>{buttonStartStopName}</button>
+                    <button 
+                        className = "button-lap-reset button-reset-disabled"
+                        onClick = {handleLapResetButtonClick} 
+                        disabled = {((time.getHours() || time.getMinutes() || time.getSeconds() || time.getMilliseconds()) === 0) ? true : false}
+                        title = {(buttonLapResetName === "LAP") ? "new lap" : "reset"}
+                            >{buttonLapResetName}
+                    </button>
+                </div>
+                <div className = "stopwatch-area-laps hide-element">   
+                    <div className="laps-title">Laps:</div>
+                    <div className="laps-items">
+                        {allLaps.map((item, index) => {return createTimeValue(item, index)})}
+                    </div>                   
+                </div>
+            </div>
+}
 
 export default StopWatch;
