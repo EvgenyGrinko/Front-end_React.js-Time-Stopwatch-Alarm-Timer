@@ -76,7 +76,7 @@ function Alarm(){
         if (isNewAlarmAdded) {
             isAlarmsOn.set(id, true);
             isAudioOn.set(id, false);
-            audioForAlarms.set(id, new Audio("sounds/sound1.mp3"));//Now for every alarm assigned the same melody to be played when it's time will come.
+            audioForAlarms.set(id, new Audio("sounds/alarmSound.mp3"));//Now for every alarm assigned the same melody to be played when it's time will come.
         };
     }
     //Function deletes one alarm from the "alarmHistory.history" map by ID and its associated "states".
