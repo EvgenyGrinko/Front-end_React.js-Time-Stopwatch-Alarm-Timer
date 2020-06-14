@@ -1,0 +1,19 @@
+@font-face{
+    font-family: "OpenSans";
+    src: url("fonts/OpenSans-regular/OpenSans.eot");
+    src: local("Dosis Regular"), local("Dosis-Regular"),
+         url("fonts/OpenSans-regular/OpenSans.woff2") format("woff2"),
+         url("fonts/OpenSans-regular/OpenSans.woff") format("woff"),
+         url("fonts/OpenSans-regular/OpenSans.ttf") format("truetype"),
+         url("fonts/OpenSans-regular/OpenSans.svg") format("svg");
+}
+
+@font-face{
+    font-family: "Unna";
+    src: url('fonts/unna-regular/unna-regular.eot');
+    src: local("Unna Regular"), local("Unna-Regular"),
+         url("fonts/unna-regular/unna-regular.woff2") format('woff2'),
+         url('fonts/unna-regular/unna-regular.woff') format('woff'),
+         url('fonts/unna-regular/unna-regular.ttf') format('truetype'),
+         url("fonts/unna-regular/unna-regular.svg") format("svg");
+}
