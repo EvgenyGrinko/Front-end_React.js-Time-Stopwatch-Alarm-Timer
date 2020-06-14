@@ -1,0 +1,120 @@
+.time{
+    display: grid;
+    grid-template-areas: "timeAreaCities timeAreaTimes timeAreaButtonClose"
+                         "timeAreaCities timeAreaTimes timeAreaButtonForAllCities";
+    grid-template-columns: 20vw 20vw 8vw;
+    grid-template-rows: 5vh 45vh;
+    column-gap: 1vw;
+    
+}
+.time-area-button-close{
+    grid-area: timeAreaButtonClose;
+    place-self: start end;
+    padding: 1vw;
+}
+
+.time-area-list-of-times{
+    grid-area: timeAreaTimes;
+    display: grid;
+    align-items: center;
+    grid-template-rows: 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh;
+    margin-top: 1vw;
+    row-gap: 0.2vh;
+}
+
+.time-area-button-for-all-cities{
+    grid-area: timeAreaButtonForAllCities;
+    place-self: end end;
+    padding-right: 1vw;
+    padding-bottom: 2.5vh;
+}
+
+.time-area-list-of-cities{
+    display: grid;
+    grid-template-rows: 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh;
+    justify-items: end;
+    align-items: center;
+    margin-top: 1vw;
+    row-gap: 0.2vh;
+    font: 1.9vh 'OpenSans', Arial, sans-serif;
+    font-weight: bold;
+    color: hsla(36, 31%, 84%, 1);
+}
+
+.container-time-in-city{
+    height: var(--time-button-height);
+    display: flex;
+    align-items: center;
+    font: 2vh 'OpenSans', Arial, sans-serif;
+    font-weight: bold;
+    color: hsla(247, 7%, 26%, 1);
+    margin-left: 0.7vw;
+}
+.container-time-in-city .button-close{
+    width: var(--time-button-close-time-width);
+    height: var(--time-button-close-time-height);
+    margin-left: 1vw;
+    background: url("../svg/close.svg");
+    background-size: calc(var(--time-button-close-time-width) - 0.7vw) calc(var(--time-button-close-time-height) - 1.3vh);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    border: 2px solid hsla(36, 31%, 84%, 1);
+    cursor: pointer;
+}
+
+.container-time-in-city .button-close:hover{
+    background-color: hsla(9, 100%, 30%, 1);
+}
+    
+.container-time-in-city .button-close:active{
+    background-color: hsla(9, 100%, 40%, 1);
+}
+
+.button-time{
+    width: var(--time-button-width);
+    height: var(--time-button-height);
+    border-radius: 5px;
+    border: none;
+    background-color: hsla(247, 7%, 26%, 1);
+    cursor: pointer;
+    color: hsla(36, 31%, 84%, 1);
+    font: 1.5vh 'OpenSans', Arial, sans-serif;
+}
+.button-time:hover{
+    box-shadow: 0.1vw 0.1vh 0.7vw hsla(36, 31%, 84%, 1);
+}
+
+.timeZone{
+    color: hsla(167, 10%, 75%, 1);
+    font: 1.2vh 'OpenSans', Arial, sans-serif;
+}
+
+.button-get-all-times{
+    width: var(--time-button-width);
+    height: var(--time-button-height);
+    background-color: hsla(247, 7%, 26%, 1);
+    color: hsla(36, 31%, 84%, 1);
+    font: 1.5vh 'OpenSans', Arial, sans-serif;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.button-get-all-times:hover{
+    box-shadow: 0.1vw 0.1vh 0.7vw hsla(247, 7%, 26%, 1);
+}
+
+.hide-element{
+    display: none;
+}
+
+@media screen and (min-device-width: 800px){
+    html{
+        --time-button-width: 10vw;
+        --time-button-height: 3.3vh;
+        --time-button-close-time-width: 1.2vw;
+        --time-button-close-time-height: 2.4vh;
+
+    }
+    }

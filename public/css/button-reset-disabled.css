@@ -1,0 +1,9 @@
+.button-reset-disabled{
+    background: url("../svg/reset_disabled.svg");
+    border: 1px solid hsla(36, 31%, 84%, 0.5);
+    border-radius: 4px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: default;
+    margin-top: -4.5vh;
+}

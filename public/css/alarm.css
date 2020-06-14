@@ -1,0 +1,285 @@
+.alarm{
+    display: grid;
+    grid-template-areas: ". . currentTimeArea closeButtonArea"
+                         ". . addAlarmButtonArea alarmSettingsArea"
+                         ". currentAlarmsArea currentAlarmsArea alarmSettingsArea";
+    grid-template-columns: 7vw 13vw 10vw 20vw;
+    grid-template-rows: 15vh 5vh 30vh;
+}
+
+.alarm-area-button-close{
+    grid-area: closeButtonArea;
+    place-self: start end;
+    padding: 1vw;
+}
+
+.alarm-area-current-time{
+    grid-area: currentTimeArea;
+    font: 6vh 'OpenSans', Arial, sans-serif;
+    color: hsla(247, 7%, 26%, 1);
+}
+
+.alarm-area-current-time ::selection{
+    background-color: hsla(36, 31%, 84%, 1);
+}
+
+.alarm-area-settings{
+    grid-area: alarmSettingsArea;
+    display: grid;
+    grid-template-areas: ". timeSetArea closeSettingsArea"
+                         ". buttonDoneArea buttonResetArea";
+    grid-template-columns: 2vw calc(var(--alarm-digit-input-width)*2 + var(--alarm-digit-input-margin-right)) calc(var(--alarm-settings-button-close-width) + 5vw);
+    grid-template-rows: 20vh var(--alarm-button-height);
+    width: calc(2vw + var(--alarm-digit-input-width)*2 + var(--alarm-digit-input-margin-right) + var(--alarm-settings-button-close-width) + 5vw);
+    height: 28vh;
+    background-color: hsla(247, 7%, 26%, 1);
+    color: hsla(36, 31%, 84%, 1);
+    box-shadow: 0.2vw 0.2vh 1vw hsla(247, 7%, 26%, 1);
+    border-radius: 5px;
+}
+
+.alarm-area-button-add-alarm{
+    grid-area: addAlarmButtonArea;
+}
+
+.alarm-area-current-alarms{
+    grid-area: currentAlarmsArea;
+    place-self: start start;
+    display: grid;
+    grid-template-columns: calc(var(--alarm-current-area-button-width) * 4  + 5vw) calc(var(--alarm-current-area-button-width) * 4  + 5vw);
+    grid-template-rows: var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height);
+    grid-gap: var(--alarm-current-area-button-height);
+    grid-auto-flow: column;
+}
+
+/**************Alarm Area Settings *************/
+
+.alarm-area-settings .alarm-digit-container{
+    grid-area: timeSetArea;
+    place-self: center center;
+    display: flex;
+}
+
+.alarm-area-settings .settings-area-button-done{
+    grid-area: buttonDoneArea;
+}
+.alarm-area-settings .settings-area-button-reset{
+    grid-area: buttonResetArea;
+}
+
+.alarm-area-settings .settings-area-close-alarm{
+    grid-area: closeSettingsArea;
+    place-self: start end;
+}
+
+.alarm-area-settings .settings-area-close-alarm .button-close-settings{
+    width: var(--alarm-settings-button-close-width);
+    height: var(--alarm-settings-button-close-height);
+    background: url("../svg/close.svg");
+    background-size: calc(var(--alarm-settings-button-close-width) - 1vw) calc(var(--alarm-settings-button-close-height) - 1.5vh); 
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0.5vh;
+}
+
+.alarm-area-settings .settings-area-close-alarm .button-close-settings:hover{
+    background-color: hsla(9, 100%, 30%, 1);
+    color: hsla(36, 31%, 84%, 1);
+}
+
+.alarm-area-settings .settings-area-close-alarm .button-close-settings:active{
+    transform: translateY(2px);
+    background-color: hsla(9, 100%, 40%, 1);
+}
+
+.alarm-area-settings .settings-area-button-done .button-done{
+    width: calc(var(--alarm-digit-input-width)*2 + var(--alarm-digit-input-margin-right));
+    height: var(--alarm-button-height);
+    font: 2vh 'OpenSans', Arial, sans-serif;
+    background-color: hsla(36, 31%, 84%, 1);
+    color:hsla(247, 7%, 26%, 1);
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid hsla(36, 31%, 84%, 1);
+}
+
+.alarm-area-settings .settings-area-button-reset .button-reset{
+    width: var(--alarm-reset-button-width);
+    height: var(--alarm-button-height);
+    background-size: calc(var(--alarm-reset-button-width) - 0.5vw) calc(var(--alarm-button-height) - 1vh); /*the first value - width; the second - height (default "auto") */
+    margin-left: 1vw;
+    }
+
+.alarm-area-settings .settings-area-button-reset .button-reset:hover{
+    background-color: hsla(247, 7%, 36%, 1);
+}
+.alarm-area-settings .settings-area-button-reset .button-reset:active{
+    background-color: hsla(247, 7%, 46%, 1);
+}
+/*************** Add button area *****************/
+.alarm-area-button-add-alarm .button-add{
+    font: 3vh 'OpenSans', Arial, sans-serif;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: hsla(247, 7%, 26%, 1);
+    color:hsla(36, 31%, 84%, 1);
+}
+
+.alarm-area-button-add-alarm .button-add:hover{
+    background-color: hsla(247, 7%, 31%, 1);
+
+}
+
+.alarm-area-button-add-alarm .button-add.button-pressed{
+    box-shadow: 0.2vw 0.2vh 1vw hsla(247, 7%, 26%, 1);
+}
+
+/***************** digit input ******************/
+
+.alarm-digit-container .digit-input {
+    margin-right: var(--alarm-digit-input-margin-right);
+    width: var(--alarm-digit-input-width);
+    margin-top: 1vw;
+}
+
+.alarm-digit-container .digit-input ::selection{
+    background-color: hsla(36, 31%, 84%, 1);
+    color: hsla(247, 7%, 26%, 1);
+}
+
+.alarm-digit-container  .digit-input .digit-input-text{
+    font: var(--timer-digit-input-font-size) 'OpenSans', Arial, sans-serif;
+    background-color: hsla(247, 7%, 26%, 1);
+    color: hsla(36, 31%, 84%, 1);
+    border-top: 1px solid hsla(36, 31%, 84%, 1);
+    border-bottom: 1px solid hsla(36, 31%, 84%, 1);
+    caret-color: hsla(9, 100%, 70%, 1);
+    margin: 1.3vh 0;
+    padding: 0.7vh 0;
+}
+
+.alarm-digit-container .digit-input button {
+    height: var(--digit-input-button-height);
+    background-color: transparent;
+    border-width: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.alarm-digit-container .digit-input button.button-enabled:hover{
+    background-color: hsla(247, 7%, 46%, 1);
+}
+.alarm-digit-container .digit-input button.button-enabled:active{
+    background-color: hsla(247, 7%, 46%, 1);
+}
+
+.alarm-digit-container .digit-input .up-arrow{
+    background-image: url("../svg/alarm-up-arrow.svg");
+    background-size: 1vw;
+}
+.alarm-digit-container .digit-input .down-arrow {
+    background-image: url("../svg/alarm-down-arrow.svg");
+    background-size: 1vw;
+}
+
+/*************** Area Current Alarm Item (AlarmHistoryItem.jsx)******************/
+
+.current-alarm-item{
+    display: flex;
+    flex-flow: row no-wrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: calc(var(--alarm-current-area-button-width) * 4 + 5vw);
+    height: var(--alarm-current-area-button-height);
+    margin-top: var(--alarm-current-area-button-height);
+}
+
+.current-alarm-item p {
+    font: 3vh 'OpenSans', Arial, sans-serif;
+    color: hsla(247, 7%, 26%, 1);
+    margin: 0;
+    padding: 0;
+}
+.current-alarm-item p::selection{
+    background-color: hsla(36, 31%, 84%, 1);
+}
+
+.current-alarm-item p.alarm-on{
+    color: hsla(36, 31%, 84%, 1);
+}
+.current-alarm-item p.alarm-on::selection{
+    background-color: hsla(247, 7%, 26%, 1);
+}
+
+.button-of-alarm{
+    width: var(--alarm-current-area-button-width);
+    height: var(--alarm-current-area-button-height);
+    background-size: calc(var(--alarm-current-area-button-width) - 0.5vw) calc(var(--alarm-current-area-button-height) - 1vh);
+    border: none;
+    cursor: pointer;
+    margin: 0 0.4vw;
+}
+.button-of-alarm:first-child{
+    margin-left: 0;
+}
+
+.button-alarm-on{
+    background: url("../svg/alarm-on.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button-alarm-off{
+    background: url("../svg/alarm-off.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.button-delete-alarm{
+    background: url("../svg/trash.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.button-mute-alarm{
+    background: url("../svg/mute-alarm.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+}
+
+.animationAlarmIsRinging{
+    animation-name: alarm-ringing;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes alarm-ringing{
+    0%{
+        background-color: hsla(167, 10%, 45%, 1);
+    }
+    100%{
+        background-color: hsla(9, 100%, 70%, 1);
+        border-radius: 5px;
+    }
+}
+
+
+@media screen and (min-device-width: 800px){
+    html{
+        --alarm-digit-input-width: 2vw;
+        --alarm-digit-input-margin-right: 1vw;
+        --alarm-digit-input-font-size: 1.2vw;
+        --alarm-input-button-height: 2vh;
+        --alarm-button-height: 4vh;
+        --alarm-reset-button-width: 2vw;
+        --alarm-settings-button-close-width: 2vw;
+        --alarm-settings-button-close-height: 3vh;
+        --alarm-current-area-button-height: 2.5vh;
+        --alarm-current-area-button-width: 1.5vw;
+        --timer-start-stop-button-font-size: 1.7vh;
+        --timer-countdown-component-font-size: 2vw;
+    }
+    }

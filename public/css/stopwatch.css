@@ -1,0 +1,167 @@
+.stopwatch{
+    display: grid;
+    grid-template-areas: ". stopwatchAreaTime stopwatchAreaButtonClose"
+                         ". stopwatchAreaButtons ."
+                         ". stopwatchAreaLaps .";
+    grid-template-columns: 18vw calc(var(--stopwatch-button-start-stop-width) + 1vw + var(--stopwatch-button-reset-width)) 18vw;
+    grid-template-rows: 23vh 5vh 22vh;
+}
+
+.stopwatch-area-button-close{
+    grid-area: stopwatchAreaButtonClose;
+    place-self: start end;
+    padding: 1vw;
+}
+
+.stopwatch-area-time{
+    grid-area: stopwatchAreaTime;
+    display: flex;
+    place-self: end center;
+    margin-bottom: 2vh;
+    font: var(--stopwatch-time-area-font-size) 'OpenSans', Arial, sans-serif;
+}
+
+.stopwatch-area-buttons{
+    grid-area: stopwatchAreaButtons;
+    place-self: start center;
+}
+
+.stopwatch-area-laps{
+    grid-area: stopwatchAreaLaps;
+    place-self: start end;
+    width: 10vw;
+    height: 15vh;
+    background-color: hsla(247, 7%, 26%, 1);
+    color: hsla(36, 31%, 84%, 1);
+    box-shadow: 0.2vw 0.2vh 1vw hsla(247, 7%, 26%, 1);
+    border-radius: 5px;
+    margin-top: 2vh;
+    display: grid;
+    grid-template-areas: "lapsAreaTitle ."
+                         ". lapsAreaItems";
+    grid-template-rows: 3vh 12vh;
+    grid-template-columns: 5vw 5vw;
+
+}
+
+.stopwatch-area-laps .laps-title{
+    grid-area: lapsAreaTitle;
+    place-self: start start;
+    margin: 1vh 0.5vw;
+    font: var(--stopwatch-laps-area-font-size) 'OpenSans', Arial, sans-serif;
+    letter-spacing: 0.2vw;
+    color: hsla(97, 38%, 52%, 1);
+}
+
+.stopwatch-area-laps .laps-items{
+    grid-area: lapsAreaItems;
+    place-self: start start;
+    font: calc(var(--stopwatch-laps-area-font-size) - 0.5vh) 'OpenSans', Arial, sans-serif;
+
+}
+
+.stopwatch-area-laps .laps-items div{
+    margin-bottom: 0.2vh;
+}
+
+.stopwatch-area-buttons .button-reset, .button-reset-disabled{
+    width: var(--stopwatch-button-reset-width);
+    height: var(--stopwatch-button-height);
+    background-size: calc(var(--stopwatch-button-reset-width) - 0.8vw) calc(var(--stopwatch-button-height) - 1.3vh); /*the first value - width; the second - height (default "auto") */
+    margin-left: 1vw;
+    margin-top: -5.3vh;
+}
+
+.stopwatch-area-buttons .button-reset:hover{
+    background-color: hsla(247, 7%, 36%, 1);
+}
+.stopwatch-area-buttons .button-reset:active{
+    background-color: hsla(247, 7%, 46%, 1);
+}
+.button-lap-reset{
+    font: var(--stopwatch-start-stop-button-font-size) 'OpenSans', Arial, sans-serif;
+    letter-spacing: 0.2vw;
+    width: var(--stopwatch-button-reset-width);
+    height: var(--stopwatch-button-height);
+    margin-left: 1vw;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.button-lap-reset.button-lap{
+    color: hsla(36, 31%, 84%, 1);
+    background-color: hsla(247, 7%, 26%, 1);
+    cursor: pointer;
+    border: 1px solid hsla(36, 31%, 84%, 1);
+}
+
+.button-lap-reset.button-lap:hover{
+    box-shadow: 0.1vw 0.1vh 0.7vw hsla(247, 7%, 26%, 1);
+}
+.button-lap-reset.button-lap:active{
+    background-color: hsla(247, 7%, 36%, 1);
+}
+
+.button-lap-reset.button-lap-disabled{
+    color: hsla(36, 31%, 84%, 0.5);
+    background-color: hsla(247, 7%, 26%, 0.5);
+    cursor: default;
+    border: 1px solid hsla(36, 31%, 84%, 0.5);
+}
+
+.stopwatch-area-buttons .button-start-stop{
+    width: var(--stopwatch-button-start-stop-width);
+    height: var(--stopwatch-button-height);
+    font: var(--stopwatch-start-stop-button-font-size) 'OpenSans', Arial, sans-serif;
+    color: white;
+    letter-spacing: 0.6vw;
+    box-shadow: 0 0.6vh hsla(247, 7%, 26%, 1);
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.button-start-stop.button-start{
+    background-color: hsla(97, 38%, 52%, 1);
+}
+
+.button-start-stop.button-start:hover{
+    background-color: hsla(97, 38%, 57%, 1);
+}
+
+.button-start-stop.button-start:active{
+    background-color: hsla(97, 38%, 57%, 1);
+    box-shadow: 0px 0.3vh hsla(247, 7%, 26%, 1);
+    transform: translateY(2px);
+}
+
+.button-start-stop.button-stop{
+    background-color: hsla(20, 100%, 60%, 1);
+}
+
+.button-start-stop.button-stop:hover{
+    background-color: hsla(20, 100%, 65%, 1);
+}
+
+.button-start-stop.button-stop:active{
+    background-color: hsla(20, 100%, 60%, 1);
+    box-shadow: 0px 0.3vh hsla(247, 7%, 26%, 1);
+    transform: translateY(2px);
+}
+
+.hide-element{
+    display: none;
+}
+
+@media screen and (min-device-width: 800px){
+    html{
+        --stopwatch-button-width: 10vw;
+        --stopwatch-button-height: 4.5vh;
+        --stopwatch-button-reset-width: 3.5vw;
+        --stopwatch-button-start-stop-width: 9.5vw;
+        --stopwatch-start-stop-button-font-size: 2vh;
+        --stopwatch-button-close-time-width: 1.2vw;
+        --stopwatch-button-close-time-height: 2.4vh;
+        --stopwatch-laps-area-font-size: 2vh;
+        --stopwatch-time-area-font-size: 5.5vh;
+    }
+    }
