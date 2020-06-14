@@ -7,6 +7,8 @@ import AlarmHistoryItem from "./AlarmHistoryItem";//Component for rendering a si
 import { v4 as uuidv4 } from 'uuid';//"uuid" - module which generates unique ID's. "uuidv4" - version 4 (random) of RFC4122 - to create IDs from cryptographically-strong random values
 //UUID - "universally unique identifier". RFC 4122 is a standard and it defines a Uniform Resource Name (URN) namespace for UUIDs. A URN is a Uniform Resource Identifier (URI) 
 //that uses the "urn" scheme. A UUID presented as a URN appears as follows: urn:uuid:123e4567-e89b-12d3-a456-426655440000
+import InitialCurtain from "../InitialCurtain";//Initial component-curtain that hides main functionality
+import CloseComponent from "../CloseComponent";//Component used to close currently opened main one
 
 function Alarm(){
 
@@ -23,10 +25,11 @@ function Alarm(){
     const [isAudioOn] = useState(new Map());//The map with [alarm ID, true/false] pairs. Used in "AlarmHistoryItem" component to show (if "true") the button "STOP" to stop the music, 
     //when the alarms time is equal to the current.
     const [audioForAlarms] = useState(new Map());//The map with [alarm ID, new Audio()] pairs. Determines which melody is assigned to which alarm. Used to play/pause it respective to ID.
+    const [isButtonAddPressed, setButtonAddState] = useState(false);//This state characterize button "button-add": it is "false" if the button is "unpressed" and "true" otherwise. 
 
     //Function hides initial alarm curtain and initiates refreshing of the current time
     function handleCurtainClick(){
-        document.querySelector(".initial-alarm-curtain").style.display = "none";
+        document.querySelector(".alarm .initial-curtain").style.display = "none";
         setTimeout(function tick(){
             setCurrentTime(new Date());
             setTimeout(tick, 100);
@@ -38,8 +41,10 @@ function Alarm(){
         if (isAlarmsOn.get(id) && item.hours === currentTime.getHours()  && item.minutes === currentTime.getMinutes() && currentTime.getSeconds() === 0) {
             audioForAlarms.get(id).play();//play the audio file
             isAudioOn.set(id, true);
-            alert(`Din-din. It's ${addZero(item.hours)} : ${addZero(item.minutes)}`);//Just a "stub" to inform the user about the alarm is working
             isAlarmsOn.set(id, false);
+            document.querySelector(".alarm .initial-curtain").classList.add("curtainAnimation");
+            const currentAlarmElement = document.getElementById(id);
+            currentAlarmElement.querySelector(".current-alarm-item p").classList.add("alarm-ringing");     
         }
     });
 
@@ -81,9 +86,9 @@ function Alarm(){
         isAudioOn.delete(id);
         audioForAlarms.delete(id);
     }
-    //Function adds time values to the map "history" in the external "alarmHistory" object which is used to render list of alarms in "div" element with className = "alarm-history".
+    //Function adds time values to the map "history" in the external "alarmHistory" object which is used to render list of alarms in "div" element with className = "alarm-current-alarms-area".
     function setHistory(id, timeValue){
-        const numberOfNotesInHistory = 4;
+        const numberOfNotesInHistory = 10;
         //In the map can be added only unique values of time. This examination will be done if the map already has any items.
         if (alarmHistory.historyList.size === 0) {alarmHistory.add(id, timeValue); return true;}
         else {
@@ -113,6 +118,9 @@ function Alarm(){
     function stopSound(id){
         isAudioOn.set(id, false);
         audioForAlarms.get(id).pause();
+        document.querySelector(".alarm .initial-curtain").classList.remove("curtainAnimation");
+        const currentAlarmElement = document.getElementById(id);
+        currentAlarmElement.querySelector(".current-alarm-item p").classList.remove("alarm-ringing");     
     }
     
     const alarmItems = [];//An array of all alarms from "alarmHistory.history" map.
@@ -143,38 +151,66 @@ function Alarm(){
                             />)
     });
 
-    return <div className="alarm">
-        <div className = "initial-alarm-curtain" onClick = {handleCurtainClick}>
-            <h1>Alarm</h1>
-            <h4>(click me)</h4>
-        </div>
-        <div className = "alarm-settings" style = {{display: isAlarmSetVisible}}>
-        <div className = "digit-container">
-            <DigitInputBlock 
-                fieldName="hours"
-                fieldValue={handleReset && time.hours} 
-                inputValidation={inputValidation} 
-                onUpDownClick={onUpDownClick} 
-                />
-            <DigitInputBlock 
-                fieldName="minutes" 
-                fieldValue={handleReset && time.minutes} 
-                inputValidation={inputValidation} 
-                onUpDownClick={onUpDownClick} 
-                />
-            <button onClick = {handleResetClick}>RESET</button>
-        </div>
-        <button onClick = {handleAddClick}>Add</button>
-        <button onClick = {() => setAlarmSetVisible("none")}>Cancel</button>
-        </div>
-    <div className="alarm-header">
-        <h1>{addZero(currentTime.getHours())} : {addZero(currentTime.getMinutes())}</h1>
-        <button onClick = {() => setAlarmSetVisible("")}>+ add alarm</button>
-    </div>
-    <div className = "alarm-history">
-        <ul>{alarmItems}</ul>
-    </div>
-    </div>
+    function handleButtonAddClick(){
+        const buttonAdd = document.querySelector(".button-add");
+        if(isButtonAddPressed){
+            setAlarmSetVisible("none");
+            setButtonAddState(false);
+            buttonAdd.classList.remove("button-pressed");
+        } else {
+            setAlarmSetVisible("");
+            setButtonAddState(true);
+            buttonAdd.classList.add("button-pressed");
+        }
+    }
+
+    function handleButtonCloseSettings(){
+        setAlarmSetVisible("none"); 
+        setButtonAddState(false);
+        document.querySelector(".button-add").classList.remove("button-pressed");
+    }
+
+    return <div className="container alarm">
+
+                <InitialCurtain name = "Alarm" handleCurtainClick = {handleCurtainClick}/>
+                <div className = "alarm-area-button-close">
+                    <CloseComponent name="alarm"/>
+                </div>
+                <div className = "alarm-area-current-time">
+                    <p>{addZero(currentTime.getHours())} : {addZero(currentTime.getMinutes())}</p>
+                </div>
+                <div className = "alarm-area-button-add-alarm">
+                    <button className = "button-add" onClick = {handleButtonAddClick}>+ add alarm</button>
+                </div>
+                <div className = "alarm-area-settings" style = {{display: isAlarmSetVisible}}>
+                    <div className = "alarm-digit-container">
+                        <DigitInputBlock 
+                            fieldName="hours"
+                            fieldValue={handleReset && time.hours} 
+                            inputValidation={inputValidation} 
+                            onUpDownClick={onUpDownClick} 
+                            />
+                        <DigitInputBlock 
+                            fieldName="minutes" 
+                            fieldValue={handleReset && time.minutes} 
+                            inputValidation={inputValidation} 
+                            onUpDownClick={onUpDownClick} 
+                            />
+                    </div>
+                    <div className = "settings-area-close-alarm">
+                        <button className="button-close-settings" onClick = {handleButtonCloseSettings} title="close"></button>
+                    </div>
+                    <div className="settings-area-button-done">
+                        <button className="button-done" onClick = {handleAddClick} title="set alarm">DONE</button>
+                    </div>
+                    <div className="settings-area-button-reset"> 
+                        <button className="button-reset" onClick = {handleResetClick} title="reset"></button>
+                    </div>
+                </div>
+                <div className = "alarm-area-current-alarms">
+                    {alarmItems}
+                </div>
+            </div> 
 }
 
 export default Alarm;
