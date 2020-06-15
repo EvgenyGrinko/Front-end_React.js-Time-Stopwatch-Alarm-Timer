@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import InitialCurtain from "./InitialCurtain";//Initial component-curtain that hides main functionality.
-import CloseComponent from "./CloseComponent";//Component used to close currently opened main one.
+import InitialCurtain from "../InitialCurtain";//Initial component-curtain that hides main functionality.
+import CloseComponent from "../CloseComponent";//Component used to close currently opened main one.
 import timeZonesRussia from "./timeZonesRussia";//An array of objects. Each one represents one city (Russian federal centers of different regions) and its timezone value.
 import ItemTimeZones from "./ItemTimeZones";//Component allows to get time of one city, according to its timezone.
 import ItemCityName from "./ItemCityName";//Component return only name of the city.

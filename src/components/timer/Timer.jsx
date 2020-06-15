@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import DigitInputBlock from "./DigitInputBlock";
+import DigitInputBlock from "../DigitInputBlock";
 import HistoryList from "./HistoryList";
 import history from "./history";//An object with array of unique values of time that were previously used for timer and a function to add it.
-import InitialCurtain from "./InitialCurtain";//Initial component-curtain that hides main 
-import CloseComponent from "./CloseComponent";//Component used to close currently opened main one
+import InitialCurtain from "../InitialCurtain";//Initial component-curtain that hides main 
+import CloseComponent from "../CloseComponent";//Component used to close currently opened main one
 
 function Timer(){
     //State of the time that user sets.
@@ -33,7 +33,7 @@ function Timer(){
     //time gap in seconds calculated; every second this time gap decreases by 1 until its value will be 0. Timer state
     //(the remain time) is calculated every second from the value of time gap
     function handleStartStopClick(event){
-        const buttonStartStop = document.querySelector(".timer-start-button-area .start-stop-button");
+        const buttonStartStop = document.querySelector(".timer-start-stop-button-area .start-stop-button");
         const initialCurtain = document.querySelector(".timer .initial-curtain");
         setDisabled(true);
         setResetDisabled(true);
@@ -218,7 +218,7 @@ function Timer(){
     }
 
     function handleStartStopButtonStyle(){
-        const startStopButton = document.querySelector(".timer-start-button-area .start-stop-button");
+        const startStopButton = document.querySelector(".timer-start-stop-button-area .start-stop-button");
         startStopButton.classList.toggle("button-start");
         startStopButton.classList.toggle("button-stop");
     }
@@ -408,7 +408,7 @@ function Timer(){
                         isDisabled={isDisabled}
                         />
                 </div>
-                <div className = "timer-start-button-area">
+                <div className = "timer-start-stop-button-area">
                     <button name="start" className="start-stop-button button-start" onClick = {handleStartStopClick}>{buttonName}</button>
                 </div>
                 <div className = "timer-reset-button-area">

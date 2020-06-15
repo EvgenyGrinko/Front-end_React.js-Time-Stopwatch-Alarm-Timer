@@ -1,5 +1,5 @@
 import React from "react";
-import addZero from "./addZero.js";//Function used to add a zero to the passed in "timeValue" if is less then 10.
+import addZero from "../addZero.js";//Function used to add a zero to the passed in "timeValue" if is less then 10.
 
 function ItemTimeZones(props){
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import InitialCurtain from "./InitialCurtain";//Initial component-curtain that hides main functionality
-import CloseComponent from "./CloseComponent";//Component used to close currently opened main one
-import addZero from "./addZero";//Function used to add a zero to the passed in "timeValue" if is less then 10.
+import InitialCurtain from "../InitialCurtain";//Initial component-curtain that hides main functionality
+import CloseComponent from "../CloseComponent";//Component used to close currently opened main one
+import addZero from "../addZero";//Function used to add a zero to the passed in "timeValue" if is less then 10.
 
 function StopWatch(){
 

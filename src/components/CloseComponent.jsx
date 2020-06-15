@@ -6,8 +6,8 @@ function CloseComponent(props){
         document.querySelector("." + props.name + " .initial-curtain").style.display = "";
     }
     return <div className="closing">
-        <button className="close-button" title="close" onClick = {handleClick}></button>
-    </div>
+                <button className="close-button" title="close" onClick = {handleClick}></button>
+            </div>
 }
 
 export default CloseComponent;
