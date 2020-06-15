@@ -1,0 +1,53 @@
+/******************* Animation for Timer *******************/
+
+.timerIsOverAnimation{
+    animation-name: timerIsOver;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes timerIsOver{
+    0% {
+        background-color: hsla(20, 100%, 60%, 1);
+    }
+    100%{
+        background-color: hsla(20, 100%, 40%, 1);
+    }
+}
+
+/******************* Animation for Alarm *******************/
+
+.animationAlarmIsRinging{
+    animation-name: alarm-ringing;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes alarm-ringing{
+    0%{
+        background-color: hsla(167, 10%, 45%, 1);
+    }
+    100%{
+        background-color: hsla(9, 100%, 70%, 1);
+        border-radius: 5px;
+    }
+}
+
+/******************* Animation for InitialCurtain *******************/
+
+.curtainAnimation{
+    animation-name: highlightCurtain;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes highlightCurtain{
+    0% {
+        background-color: hsla(247, 7%, 26%, 1);
+    }
+    100%{
+        background-color: hsla(247, 7%, 46%, 1);
+        color: hsla(20, 100%, 60%, 1);
+    }
+}
+

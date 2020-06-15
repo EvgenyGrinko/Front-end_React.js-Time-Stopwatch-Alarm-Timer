@@ -1,15 +1,26 @@
 @import url("fonts.css");
+@import url("animations.css");
 @import url("button-reset.css");
 @import url("button-reset-disabled.css");
+@import url("close-component.css");
+@import url("digit-input-block.css");
+@import url("initial-curtain.css");
 @import url("alarm.css");
 @import url("time.css");
 @import url("stopwatch.css");
+@import url("timer.css");
+
+/* hsla(36, 31%, 84%, 1) */
+/* hsla(111, 11%, 61%, 1) */
+/* hsla(167, 10%, 45%, 1) */
+/* hsla(247, 7%, 26%, 1) */
 
 body {
     background-color: hsla(247, 7%, 26%, 1);
     padding: 0;
     margin: 0;
 }
+
 ::selection{
     background-color: hsla(247, 7%, 26%, 1);
 }
@@ -21,389 +32,38 @@ body {
         "stopwatch timer";
     width:100vw;
     height:100vh;
+    background-color: hsla(167, 10%, 45%, 1);
+    color: hsla(36, 31%, 84%, 1);
+}
+
+.alarm {
+    grid-area: alarm;
+}
+
+.time {
+    grid-area: time;
+}
+
+.stopwatch {
+    grid-area: stopwatch;
+}
+
+.timer {
+    grid-area: timer;
 }
 
 .container {
     width:50vw;
     height:50vh;
 }
-/* hsla(36, 31%, 84%, 1) */
-/* hsla(111, 11%, 61%, 1) */
-/* hsla(167, 10%, 45%, 1) */
-/* hsla(247, 7%, 26%, 1) */
 
-/* FONT */
-.initial-curtain{
-    position: absolute;
-    box-sizing: border-box;
-    font: 4vh 'Unna', 'Times New Roman', Times, serif;
-    letter-spacing: 0.7em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: column nowrap;
-    width: 50vw;
-    height: 50vh;
-    background-color: hsla(247, 7%, 26%, 1);
-    color: hsla(167, 10%, 45%, 1);
-    margin: 0;
-    padding: 0;
+/********************* hide-element *********************/
+
+.hide-element{
+    display: none;
 }
 
-.initial-curtain:hover{
-    background-color: hsla(247, 7%, 30%, 1);
-    color: hsla(167, 10%, 50%, 1);
-    cursor: pointer;
-}
-
-.alarm {
-    grid-area: alarm;
-    background-color: hsla(167, 10%, 45%, 1);
-    color: hsla(36, 31%, 84%, 1);
-}
-
-.time {
-    grid-area: time;
-    background-color: hsla(167, 10%, 45%, 1);
-    color: hsla(36, 31%, 84%, 1);
-}
-
-.stopwatch {
-    grid-area: stopwatch;
-    background-color: hsla(167, 10%, 45%, 1);
-    color: hsla(36, 31%, 84%, 1);
-}
-
-.timer {
-    grid-area: timer;
-    display: grid;
-    /* See "grid-template-areas" "grid-template-columns" "grid-template-rows" and "grid-gap" at the "media" rules at the bottom of the file */
-    background-color: hsla(167, 10%, 45%, 1);
-    color: hsla(36, 31%, 84%, 1);
-}
-
-.timerIsOverAnimation{
-    animation-name: timerIsOver;
-    animation-iteration-count: infinite;
-    animation-duration: 1s;
-}
-
-.curtainAnimation{
-    animation-name: highlightCurtain;
-    animation-iteration-count: infinite;
-    animation-duration: 1s;
-}
-@keyframes highlightCurtain{
-    0% {
-        background-color: hsla(247, 7%, 26%, 1);
-    }
-    100%{
-        background-color: hsla(247, 7%, 46%, 1);
-        color: hsla(20, 100%, 60%, 1);
-
-    }
-}
-
-@keyframes timerIsOver{
-    0% {
-        background-color: hsla(20, 100%, 60%, 1);
-    }
-    100%{
-        background-color: hsla(20, 100%, 40%, 1);
-    }
-}
-/*************DigitInputBlock***************/
-
-.timer-digit-container {
-    display: flex;
-    flex-flow: row no-wrap;
-}
-
-.digit-input {
-    margin-right: var(--timer-digit-input-margin-right);
-    width: var(--timer-digit-input-width);
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-}
-
-.digit-input:last-child{
-    margin-right: 0;
-
-}
-
-.digit-input .digit-input-text{
-    font: var(--timer-digit-input-font-size) 'OpenSans', Arial, sans-serif;
-
-    width: 100%;
-    background-color: hsla(167, 10%, 45%, 1);
-    color: hsla(36, 31%, 84%, 1);
-    border-width: 0;
-    border-top: 1px solid hsla(36, 31%, 84%, 1);
-    border-bottom: 1px solid hsla(36, 31%, 84%, 1);
-    caret-color: hsla(9, 100%, 70%, 1);
-    margin: 1.8vh 0;
-    padding: 0.7vh 0;
-    text-align: center;
-}
-
-.digit-input .digit-input-text.disabled{
-    color: hsla(36, 31%, 84%, 0.5);
-}
-
-.digit-input button {
-    width: 100%;
-    height: var(--digit-input-button-height);
-    background-color: transparent;
-    border-width: 0;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.digit-input button.button-disabled{
-    cursor: default;
-}
-.digit-input button.button-enabled:hover{
-    background-color: hsla(111, 11%, 61%, 1);
-    box-shadow: 0 4px hsla(247, 7%, 26%, 1);
-}
-.digit-input button.button-enabled:active{
-    background-color: hsla(111, 11%, 65%, 1);
-    box-shadow: 0 2px hsla(247, 7%, 26%, 1);
-    transform: translateY(2px);
-}
-
-.arrow {
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.up-arrow {
-    background-image: url("../svg/up-arrow.svg");
-}
-.down-arrow {
-    background-image: url("../svg/down-arrow.svg");
-} 
-
-/*************HistoryList***************/
-
-.timer-history-list-area .history-list {
-    display: grid;
-    grid-template-areas: "closeHistoryArea"
-                         "historyNotes";
-    grid-template-rows: 5% 95%;
-    /* position: absolute;
-    bottom: 5%;
-    right: 5%;
-    opacity: 0.9; */
-    background-color: hsla(247, 7%, 26%, 1);
-    box-shadow: 0.2vw 0.2vh 1vw hsla(247, 7%, 26%, 1);
-    border-radius: 1vmin;
-    width: var(--timer-history-list-area-width);
-    height: var(--timer-history-list-area-height);
-    margin-top: -1.7vh;
-}
-
-.timer-history-list-area .history-list p {
-    grid-area: historyNotes;
-    font: var(--timer-history-list-font-size) 'OpenSans', Arial, sans-serif;
-    color: hsla(36, 31%, 84%, 0.7);
-    place-self: center center;
-    padding-bottom: 5%;
-}
-
-.timer-history-list-area .history-list ul li {
-    grid-area: historyNotes;
-    font: var(--timer-history-list-font-size) 'OpenSans', Arial, sans-serif;
-    color: hsla(36, 31%, 84%, 1);
-    place-self: center center;
-    cursor: pointer;
-    margin: 0 0 1vh 0;
-}
-
-.timer-history-list-area .history-list ul li:hover{
-    color: hsla(97, 38%, 52%, 1);
-}
-
-.timer-history-list-area .history-list .close-button {
-    grid-area: closeHistoryArea;
-    place-self: start end;
-    color: hsla(247, 7%, 26%, 1);
-    background-color: transparent;
-    background: url("../svg/close.svg");
-    background-size: calc(var(--timer-history-list-close-button-width) - 0.7vw) calc(var(--timer-history-list-close-button-height) - 1.5vh);
-    background-position: center;
-    background-repeat: no-repeat;
-    width: var(--timer-history-list-close-button-width);
-    height: var(--timer-history-list-close-button-height);
-    border-width: 0px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 0.5vh;
-}
-.timer-history-list-area .history-list .close-button:hover{
-    background-color: hsla(9, 100%, 30%, 1);
-    color: hsla(36, 31%, 84%, 1);
-}
-
-.timer-history-list-area .history-list .close-button:active{
-    transform: translateY(2px);
-    background-color: hsla(9, 100%, 40%, 1);
-}
-
-/*************CloseComponent***************/
-
-.closing .close-button{
-    width: var(--timer-button-height);
-    height: var(--timer-button-height);
-    background: url("../svg/close.svg");
-    background-color: transparent;
-    border-width: 0px;
-    cursor: pointer;
-    box-sizing: content-box;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 2vh;/*the first value - width; the second - height (default "auto") */
-}
-
-.closing .close-button:hover{
-    background-color: hsla(9, 100%, 30%, 1);
-    border-radius: 4px;
-}
-.closing .close-button:active{
-    transform: translateY(2px);
-    background-color: hsla(9, 100%, 40%, 1);
-}
-
-/*************Timer***************/
-.timer-close-button-area{
-    grid-area: closeButtonArea;
-    place-self: start end;
-    padding: 1vw;
-}
-
-.timer-digit-container{
-    grid-area: timeSetArea;
-    place-self: end start;
-}
-
-.timer-reset-button-area{
-    grid-area: resetButtonArea;
-    place-self: start start;
-}
-
-.timer-start-button-area{
-    grid-area: startButtonArea;
-    place-self: start start;
-}
-
-.timer-history-button-area{
-    grid-area: historyButtonArea;
-    place-self: start start;
-}
-
-.timer-countdown-area{
-    grid-area: countdownArea;
-    place-self: start center;
-}
-
-.timer-history-list-area{
-    grid-area: historyListArea;
-    place-self: start start;
-}
-
-
-.start-stop-button{
-    width: calc( var(--timer-digit-input-width) * 3 + var(--timer-digit-input-margin-right) * 2 );
-    height: var(--timer-button-height);
-    font: var(--timer-start-stop-button-font-size) 'OpenSans', Arial, sans-serif;
-    color: white;
-    letter-spacing: 0.6vw;
-    box-shadow: 0 0.6vh hsla(247, 7%, 26%, 1);
-    border-radius: 4px;
-    border-width: 0;
-    cursor: pointer;
-}
-.start-stop-button.button-start{
-    background-color: hsla(97, 38%, 52%, 1);
-}
-
-.start-stop-button.button-start:hover{
-    background-color: hsla(97, 38%, 57%, 1);
-}
-
-.start-stop-button.button-start:active{
-    background-color: hsla(97, 38%, 57%, 1);
-    box-shadow: 0px 0.3vh hsla(247, 7%, 26%, 1);
-    transform: translateY(2px);
-}
-
-.start-stop-button.button-stop{
-    background-color: hsla(20, 100%, 60%, 1);
-}
-
-.start-stop-button.button-stop:hover{
-    background-color: hsla(20, 100%, 65%, 1);
-}
-
-.start-stop-button.button-stop:active{
-    background-color: hsla(20, 100%, 60%, 1);
-    box-shadow: 0px 0.3vh hsla(247, 7%, 26%, 1);
-    transform: translateY(2px);
-}
-/* .reset-button */
-.timer-reset-button-area .button-reset{
-    width: var(--timer-reset-history-button-width);
-    height: var(--timer-button-height);
-    background-size: calc(var(--timer-reset-history-button-width) - 0.5vw) calc(var(--timer-button-height) - 1vh); /*the first value - width; the second - height (default "auto") */
-}
-
-.timer-reset-button-area .button-reset.disabled{
-    background: url("../svg/reset_disabled.svg");
-    border: 1px solid hsla(36, 31%, 84%, 0.5);
-    background-size: calc(var(--timer-reset-history-button-width) - 0.5vw) calc(var(--timer-button-height) - 1vh);
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: default;
-}
-.timer-reset-button-area .button-reset.enabled:hover{
-    background-color: hsla(247, 7%, 36%, 1);
-}
-.timer-reset-button-area .button-reset.enabled:active{
-    background-color: hsla(247, 7%, 46%, 1);
-}
-
-.history-button{
-    width: var(--timer-reset-history-button-width);
-    height: var(--timer-button-height);
-    background: url("../svg/history.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    border-width: 0px;
-    border-radius: 4px;
-}
-
-.history-button.button-enabled:hover{
-    background-color: hsla(167, 10%, 65%, 1);
-}
-
-.history-button.button-disabled{
-    cursor: default;
-    background: url("../svg/history_disabled.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-
-.history-button.history-button-pressed{
-    box-shadow : inset 0 0 1.5vh hsla(247, 7%, 26%, 1);
-    border : inset 1px hsla(247, 7%, 26%, 1);
-}
-
-.countdown-component{
-    font: var(--timer-countdown-component-font-size) 'OpenSans', Arial, sans-serif;
-    width: calc( var(--timer-digit-input-width) * 3 + var(--timer-digit-input-margin-right) * 2 );
-}
+/******** variables for Timer and digit-input-block ********/
 
 @media screen and (min-device-width: 800px){
     html{
@@ -421,59 +81,17 @@ body {
         --timer-history-list-area-width: 12vw;
         --timer-history-list-area-height: 19vh;
         --initial-curtain-font-size: 4vh;
-
     }
-    .timer{
-            grid-template-areas: ". timeSetArea . . closeButtonArea"
-                                 ". startButtonArea resetButtonArea historyButtonArea ."
-                                 ". countdownArea . historyListArea historyListArea";
-    grid-template-columns: 17vw calc( var(--timer-digit-input-width)*3 + var(--timer-digit-input-margin-right)*2 ) var(--timer-reset-history-button-width) var(--timer-reset-history-button-width) auto;
-    grid-template-rows: 20vh var(--timer-button-height) auto;
-    grid-gap: 2vh 1vw;
-    }
-
 }
+
 /*
-
-
 @media screen and (min-device-width: 1200px){
     html{
-        --timer-digit-input-width: 4vw;
-        --timer-digit-input-margin-right: 2vw;
-        --timer-digit-input-font-size: 1vw;
-        --timer-central-container-width: 16vw;
-        --timer-button-height: 4vh;
-        --timer-start-stop-button-font-size: 1.7vh;
-        --timer-countdown-component-font-size: 3.1vh;
-        --timer-history-list-font-size: 1.5vh;
-        --timer-history-list-close-button-width: 2.5vw;
-        --timer-history-list-close-button-height: 2vh;
-        --initial-curtain-font-size: 4vh;
-
     }
-    /* .timer{
-        grid-template-columns: 35% 16vw auto auto auto;
-        grid-template-rows: 40% 10% 50%;    
-    } 
 }
 
 @media screen and (min-device-width: 1600px){
     html{
-        --timer-digit-input-width: 4vw;
-        --timer-digit-input-margin-right: 2vw;
-        --timer-digit-input-font-size: 1vw;
-        --timer-central-container-width: 16vw;
-        --timer-button-height: 4vh;
-        --timer-start-stop-button-font-size: 1.7vh;
-        --timer-countdown-component-font-size: 3.1vh;
-        --timer-history-list-font-size: 1.5vh;
-        --timer-history-list-close-button-width: 2.5vw;
-        --timer-history-list-close-button-height: 2vh;
-        --initial-curtain-font-size: 4vh;
-
     }
-    /* .timer{
-        grid-template-columns: 35% 16vw auto auto auto;
-        grid-template-rows: 40% 10% 50%;    
-    } 
 }
+*/

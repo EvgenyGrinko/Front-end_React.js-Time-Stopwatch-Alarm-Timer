@@ -29,6 +29,16 @@
 .stopwatch-area-laps{
     grid-area: stopwatchAreaLaps;
     place-self: start end;
+}
+
+/********************* stopwatchAreaLaps *********************/
+
+.stopwatch-area-laps{
+    display: grid;
+    grid-template-areas: "lapsAreaTitle ."
+                         ". lapsAreaItems";
+    grid-template-rows: 3vh 12vh;
+    grid-template-columns: 5vw 5vw;
     width: 10vw;
     height: 15vh;
     background-color: hsla(247, 7%, 26%, 1);
@@ -36,12 +46,6 @@
     box-shadow: 0.2vw 0.2vh 1vw hsla(247, 7%, 26%, 1);
     border-radius: 5px;
     margin-top: 2vh;
-    display: grid;
-    grid-template-areas: "lapsAreaTitle ."
-                         ". lapsAreaItems";
-    grid-template-rows: 3vh 12vh;
-    grid-template-columns: 5vw 5vw;
-
 }
 
 .stopwatch-area-laps .laps-title{
@@ -64,6 +68,8 @@
     margin-bottom: 0.2vh;
 }
 
+/********************* stopwatchAreaButtons *********************/
+
 .stopwatch-area-buttons .button-reset, .button-reset-disabled{
     width: var(--stopwatch-button-reset-width);
     height: var(--stopwatch-button-height);
@@ -75,9 +81,23 @@
 .stopwatch-area-buttons .button-reset:hover{
     background-color: hsla(247, 7%, 36%, 1);
 }
+
 .stopwatch-area-buttons .button-reset:active{
     background-color: hsla(247, 7%, 46%, 1);
 }
+
+.stopwatch-area-buttons .button-start-stop{
+    width: var(--stopwatch-button-start-stop-width);
+    height: var(--stopwatch-button-height);
+    font: var(--stopwatch-start-stop-button-font-size) 'OpenSans', Arial, sans-serif;
+    color: white;
+    letter-spacing: 0.6vw;
+    box-shadow: 0 0.6vh hsla(247, 7%, 26%, 1);
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
 .button-lap-reset{
     font: var(--stopwatch-start-stop-button-font-size) 'OpenSans', Arial, sans-serif;
     letter-spacing: 0.2vw;
@@ -109,17 +129,6 @@
     border: 1px solid hsla(36, 31%, 84%, 0.5);
 }
 
-.stopwatch-area-buttons .button-start-stop{
-    width: var(--stopwatch-button-start-stop-width);
-    height: var(--stopwatch-button-height);
-    font: var(--stopwatch-start-stop-button-font-size) 'OpenSans', Arial, sans-serif;
-    color: white;
-    letter-spacing: 0.6vw;
-    box-shadow: 0 0.6vh hsla(247, 7%, 26%, 1);
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-}
 .button-start-stop.button-start{
     background-color: hsla(97, 38%, 52%, 1);
 }
@@ -148,9 +157,7 @@
     transform: translateY(2px);
 }
 
-.hide-element{
-    display: none;
-}
+/********************* variables *********************/
 
 @media screen and (min-device-width: 800px){
     html{

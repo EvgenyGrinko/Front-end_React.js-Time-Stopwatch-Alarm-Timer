@@ -25,6 +25,20 @@
 
 .alarm-area-settings{
     grid-area: alarmSettingsArea;
+}
+
+.alarm-area-button-add-alarm{
+    grid-area: addAlarmButtonArea;
+}
+
+.alarm-area-current-alarms{
+    grid-area: currentAlarmsArea;
+    place-self: start start;
+}
+
+/********************* alarmSettingsArea *********************/
+
+.alarm-area-settings{
     display: grid;
     grid-template-areas: ". timeSetArea closeSettingsArea"
                          ". buttonDoneArea buttonResetArea";
@@ -38,22 +52,6 @@
     border-radius: 5px;
 }
 
-.alarm-area-button-add-alarm{
-    grid-area: addAlarmButtonArea;
-}
-
-.alarm-area-current-alarms{
-    grid-area: currentAlarmsArea;
-    place-self: start start;
-    display: grid;
-    grid-template-columns: calc(var(--alarm-current-area-button-width) * 4  + 5vw) calc(var(--alarm-current-area-button-width) * 4  + 5vw);
-    grid-template-rows: var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height);
-    grid-gap: var(--alarm-current-area-button-height);
-    grid-auto-flow: column;
-}
-
-/**************Alarm Area Settings *************/
-
 .alarm-area-settings .alarm-digit-container{
     grid-area: timeSetArea;
     place-self: center center;
@@ -63,6 +61,7 @@
 .alarm-area-settings .settings-area-button-done{
     grid-area: buttonDoneArea;
 }
+
 .alarm-area-settings .settings-area-button-reset{
     grid-area: buttonResetArea;
 }
@@ -116,29 +115,12 @@
 .alarm-area-settings .settings-area-button-reset .button-reset:hover{
     background-color: hsla(247, 7%, 36%, 1);
 }
+
 .alarm-area-settings .settings-area-button-reset .button-reset:active{
     background-color: hsla(247, 7%, 46%, 1);
 }
-/*************** Add button area *****************/
-.alarm-area-button-add-alarm .button-add{
-    font: 3vh 'OpenSans', Arial, sans-serif;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: hsla(247, 7%, 26%, 1);
-    color:hsla(36, 31%, 84%, 1);
-}
 
-.alarm-area-button-add-alarm .button-add:hover{
-    background-color: hsla(247, 7%, 31%, 1);
-
-}
-
-.alarm-area-button-add-alarm .button-add.button-pressed{
-    box-shadow: 0.2vw 0.2vh 1vw hsla(247, 7%, 26%, 1);
-}
-
-/***************** digit input ******************/
+/***************** alarmSettingsArea -> alarm-digit-container ******************/
 
 .alarm-digit-container .digit-input {
     margin-right: var(--alarm-digit-input-margin-right);
@@ -152,27 +134,21 @@
 }
 
 .alarm-digit-container  .digit-input .digit-input-text{
-    font: var(--timer-digit-input-font-size) 'OpenSans', Arial, sans-serif;
+    font: var(--alarm-digit-input-font-size) 'OpenSans', Arial, sans-serif;
     background-color: hsla(247, 7%, 26%, 1);
     color: hsla(36, 31%, 84%, 1);
-    border-top: 1px solid hsla(36, 31%, 84%, 1);
-    border-bottom: 1px solid hsla(36, 31%, 84%, 1);
-    caret-color: hsla(9, 100%, 70%, 1);
     margin: 1.3vh 0;
     padding: 0.7vh 0;
 }
 
 .alarm-digit-container .digit-input button {
-    height: var(--digit-input-button-height);
-    background-color: transparent;
-    border-width: 0;
-    border-radius: 5px;
-    cursor: pointer;
+    height: var(--alarm-input-button-height);
 }
 
 .alarm-digit-container .digit-input button.button-enabled:hover{
     background-color: hsla(247, 7%, 46%, 1);
 }
+
 .alarm-digit-container .digit-input button.button-enabled:active{
     background-color: hsla(247, 7%, 46%, 1);
 }
@@ -181,12 +157,40 @@
     background-image: url("../svg/alarm-up-arrow.svg");
     background-size: 1vw;
 }
+
 .alarm-digit-container .digit-input .down-arrow {
     background-image: url("../svg/alarm-down-arrow.svg");
     background-size: 1vw;
 }
 
-/*************** Area Current Alarm Item (AlarmHistoryItem.jsx)******************/
+/********************* addAlarmButtonArea *********************/
+
+.alarm-area-button-add-alarm .button-add{
+    font: 3vh 'OpenSans', Arial, sans-serif;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: hsla(247, 7%, 26%, 1);
+    color:hsla(36, 31%, 84%, 1);
+}
+
+.alarm-area-button-add-alarm .button-add:hover{
+    background-color: hsla(247, 7%, 31%, 1);
+}
+
+.alarm-area-button-add-alarm .button-add.button-pressed{
+    box-shadow: 0.2vw 0.2vh 1vw hsla(247, 7%, 26%, 1);
+}
+
+/********************* currentAlarmsArea (AlarmHistoryItem.jsx) *********************/
+
+.alarm-area-current-alarms{
+    display: grid;
+    grid-template-columns: calc(var(--alarm-current-area-button-width) * 4  + 5vw) calc(var(--alarm-current-area-button-width) * 4  + 5vw);
+    grid-template-rows: var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height) var(--alarm-current-area-button-height);
+    grid-gap: var(--alarm-current-area-button-height);
+    grid-auto-flow: column;
+}
 
 .current-alarm-item{
     display: flex;
@@ -250,36 +254,19 @@
     margin: 0;
 }
 
-.animationAlarmIsRinging{
-    animation-name: alarm-ringing;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-}
-
-@keyframes alarm-ringing{
-    0%{
-        background-color: hsla(167, 10%, 45%, 1);
-    }
-    100%{
-        background-color: hsla(9, 100%, 70%, 1);
-        border-radius: 5px;
-    }
-}
-
+/********************* variables *********************/
 
 @media screen and (min-device-width: 800px){
     html{
         --alarm-digit-input-width: 2vw;
         --alarm-digit-input-margin-right: 1vw;
         --alarm-digit-input-font-size: 1.2vw;
-        --alarm-input-button-height: 2vh;
+        --alarm-input-button-height: 2.5vh;
         --alarm-button-height: 4vh;
         --alarm-reset-button-width: 2vw;
         --alarm-settings-button-close-width: 2vw;
         --alarm-settings-button-close-height: 3vh;
         --alarm-current-area-button-height: 2.5vh;
         --alarm-current-area-button-width: 1.5vw;
-        --timer-start-stop-button-font-size: 1.7vh;
-        --timer-countdown-component-font-size: 2vw;
     }
     }

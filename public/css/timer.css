@@ -1,0 +1,216 @@
+.timer{
+    display: grid;
+    grid-template-areas: ". timeSetArea . . closeButtonArea"
+                         ". startStopButtonArea resetButtonArea historyButtonArea ."
+                         ". countdownArea . historyListArea historyListArea";
+    grid-template-columns: 17vw calc( var(--timer-digit-input-width)*3 + var(--timer-digit-input-margin-right)*2 ) var(--timer-reset-history-button-width) var(--timer-reset-history-button-width) auto;
+    grid-template-rows: 20vh var(--timer-button-height) auto;
+    grid-gap: 2vh 1vw;
+}
+
+
+.timer-close-button-area{
+    grid-area: closeButtonArea;
+    place-self: start end;
+    padding: 1vw;
+}
+
+.timer-digit-container{
+    grid-area: timeSetArea;
+    place-self: end start;
+}
+
+.timer-reset-button-area{
+    grid-area: resetButtonArea;
+    place-self: start start;
+}
+
+.timer-start-stop-button-area{
+    grid-area: startStopButtonArea;
+    place-self: start start;
+}
+
+.timer-history-button-area{
+    grid-area: historyButtonArea;
+    place-self: start start;
+}
+
+.timer-countdown-area{
+    grid-area: countdownArea;
+    place-self: start center;
+}
+
+.timer-history-list-area{
+    grid-area: historyListArea;
+    place-self: start start;
+}
+
+/********************* timeSetArea *********************/
+
+.timer-digit-container {
+    display: flex;
+    flex-flow: row no-wrap;
+}
+
+/********************* startStopButtonArea *********************/
+
+.timer-start-stop-button-area .start-stop-button{
+    width: calc( var(--timer-digit-input-width) * 3 + var(--timer-digit-input-margin-right) * 2 );
+    height: var(--timer-button-height);
+    font: var(--timer-start-stop-button-font-size) 'OpenSans', Arial, sans-serif;
+    color: white;
+    letter-spacing: 0.6vw;
+    box-shadow: 0 0.6vh hsla(247, 7%, 26%, 1);
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.timer-start-stop-button-area .start-stop-button.button-start{
+    background-color: hsla(97, 38%, 52%, 1);
+}
+
+.timer-start-stop-button-area .start-stop-button.button-start:hover{
+    background-color: hsla(97, 38%, 57%, 1);
+}
+
+.timer-start-stop-button-area .start-stop-button.button-start:active{
+    background-color: hsla(97, 38%, 57%, 1);
+    box-shadow: 0px 0.3vh hsla(247, 7%, 26%, 1);
+    transform: translateY(2px);
+}
+
+.timer-start-stop-button-area .start-stop-button.button-stop{
+    background-color: hsla(20, 100%, 60%, 1);
+}
+
+.timer-start-stop-button-area .start-stop-button.button-stop:hover{
+    background-color: hsla(20, 100%, 65%, 1);
+}
+
+.timer-start-stop-button-area .start-stop-button.button-stop:active{
+    background-color: hsla(20, 100%, 60%, 1);
+    box-shadow: 0px 0.3vh hsla(247, 7%, 26%, 1);
+    transform: translateY(2px);
+}
+
+/********************* resetButtonArea *********************/
+
+.timer-reset-button-area .button-reset{
+    width: var(--timer-reset-history-button-width);
+    height: var(--timer-button-height);
+    background-size: calc(var(--timer-reset-history-button-width) - 0.5vw) calc(var(--timer-button-height) - 1vh); /*the first value - width; the second - height (default "auto") */
+}
+
+.timer-reset-button-area .button-reset.disabled{
+    background: url("../svg/reset_disabled.svg");
+    border: 1px solid hsla(36, 31%, 84%, 0.5);
+    background-size: calc(var(--timer-reset-history-button-width) - 0.5vw) calc(var(--timer-button-height) - 1vh);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: default;
+}
+.timer-reset-button-area .button-reset.enabled:hover{
+    background-color: hsla(247, 7%, 36%, 1);
+}
+.timer-reset-button-area .button-reset.enabled:active{
+    background-color: hsla(247, 7%, 46%, 1);
+}
+
+/********************* historyButtonArea *********************/
+
+.timer-history-button-area .history-button{
+    width: var(--timer-reset-history-button-width);
+    height: var(--timer-button-height);
+    background: url("../svg/history.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+.timer-history-button-area .history-button.button-enabled:hover{
+    background-color: hsla(167, 10%, 65%, 1);
+}
+
+.timer-history-button-area .history-button.button-disabled{
+    cursor: default;
+    background: url("../svg/history_disabled.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.timer-history-button-area .history-button.history-button-pressed{
+    box-shadow : inset 0 0 1.5vh hsla(247, 7%, 26%, 1);
+    border : inset 1px hsla(247, 7%, 26%, 1);
+}
+
+/********************* countdownArea *********************/
+
+.timer-countdown-area .countdown-component{
+    font: var(--timer-countdown-component-font-size) 'OpenSans', Arial, sans-serif;
+    width: calc( var(--timer-digit-input-width) * 3 + var(--timer-digit-input-margin-right) * 2 );
+}
+
+/********************* historyListArea *********************/
+
+.timer-history-list-area .history-list {
+    display: grid;
+    grid-template-areas: "closeHistoryArea"
+                         "historyNotes";
+    grid-template-rows: 5% 95%;
+    background-color: hsla(247, 7%, 26%, 1);
+    box-shadow: 0.2vw 0.2vh 1vw hsla(247, 7%, 26%, 1);
+    border-radius: 1vmin;
+    width: var(--timer-history-list-area-width);
+    height: var(--timer-history-list-area-height);
+    margin-top: -1.7vh;
+}
+
+.timer-history-list-area .history-list p {
+    grid-area: historyNotes;
+    font: var(--timer-history-list-font-size) 'OpenSans', Arial, sans-serif;
+    color: hsla(36, 31%, 84%, 0.7);
+    place-self: center center;
+    padding-bottom: 5%;
+}
+
+.timer-history-list-area .history-list ul li {
+    grid-area: historyNotes;
+    font: var(--timer-history-list-font-size) 'OpenSans', Arial, sans-serif;
+    color: hsla(36, 31%, 84%, 1);
+    place-self: center center;
+    cursor: pointer;
+    margin: 0 0 1vh 0;
+}
+
+.timer-history-list-area .history-list ul li:hover{
+    color: hsla(97, 38%, 52%, 1);
+}
+
+.timer-history-list-area .history-list .close-button {
+    grid-area: closeHistoryArea;
+    place-self: start end;
+    color: hsla(247, 7%, 26%, 1);
+    background-color: transparent;
+    background: url("../svg/close.svg");
+    background-size: calc(var(--timer-history-list-close-button-width) - 0.7vw) calc(var(--timer-history-list-close-button-height) - 1.5vh);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: var(--timer-history-list-close-button-width);
+    height: var(--timer-history-list-close-button-height);
+    border-width: 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0.5vh;
+}
+
+.timer-history-list-area .history-list .close-button:hover{
+    background-color: hsla(9, 100%, 30%, 1);
+    color: hsla(36, 31%, 84%, 1);
+}
+
+.timer-history-list-area .history-list .close-button:active{
+    transform: translateY(2px);
+    background-color: hsla(9, 100%, 40%, 1);
+}

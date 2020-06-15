@@ -30,6 +30,7 @@
 }
 
 .time-area-list-of-cities{
+    grid-area: timeAreaCities;
     display: grid;
     grid-template-rows: 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh 4vh;
     justify-items: end;
@@ -40,6 +41,8 @@
     font-weight: bold;
     color: hsla(36, 31%, 84%, 1);
 }
+
+/********************* timeAreaTimes *********************/
 
 .container-time-in-city{
     height: var(--time-button-height);
@@ -90,6 +93,8 @@
     font: 1.2vh 'OpenSans', Arial, sans-serif;
 }
 
+/********************* timeAreaButtonForAllCities *********************/
+
 .button-get-all-times{
     width: var(--time-button-width);
     height: var(--time-button-height);
@@ -105,9 +110,7 @@
     box-shadow: 0.1vw 0.1vh 0.7vw hsla(247, 7%, 26%, 1);
 }
 
-.hide-element{
-    display: none;
-}
+/********************* variables *********************/
 
 @media screen and (min-device-width: 800px){
     html{
@@ -115,6 +118,5 @@
         --time-button-height: 3.3vh;
         --time-button-close-time-width: 1.2vw;
         --time-button-close-time-height: 2.4vh;
-
     }
     }

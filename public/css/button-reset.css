@@ -1,8 +1,8 @@
 .button-reset{
-background: url("../svg/reset.svg");
-cursor: pointer;
-border-radius: 4px;
-border: 1px solid hsla(36, 31%, 84%, 1);
-background-position: center;
-background-repeat: no-repeat;
+    background: url("../svg/reset.svg");
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid hsla(36, 31%, 84%, 1);
+    background-position: center;
+    background-repeat: no-repeat;
 }

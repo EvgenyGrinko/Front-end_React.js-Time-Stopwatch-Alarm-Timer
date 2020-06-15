@@ -1,0 +1,21 @@
+.closing .close-button{
+    width: var(--timer-button-height);
+    height: var(--timer-button-height);
+    background: url("../svg/close.svg");
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    box-sizing: content-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 2vh;/*the first value - width; the second - height (default "auto") */
+}
+
+.closing .close-button:hover{
+    background-color: hsla(9, 100%, 30%, 1);
+    border-radius: 4px;
+}
+.closing .close-button:active{
+    transform: translateY(2px);
+    background-color: hsla(9, 100%, 40%, 1);
+}
